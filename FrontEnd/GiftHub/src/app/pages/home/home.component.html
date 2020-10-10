@@ -1,22 +1,26 @@
-<section *ngFor="let card of cards">
-    <h2> {{ card.name }}</h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 d-flex align-items-stretch">
-
-                <div class="card-deck">
-                    <div *ngFor="let item of card.availability" class="card">
-                        <img class="card-img-top" src="{{card.image}}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Precio</h5>
-                            <p class="card-text"> $ {{value[item-1].total}} </p>
-                        </div>
-                    </div>
-                </div>
+<div *ngFor="let card of cards" class="column">
+    <div class="giftcard">
+        <h2>{{card.name}}</h2>
+        <br>
+        <div *ngFor="let item of card.availability" class="box">
+            <div class="glass"></div>
+            <div class="content">
+                <figure>
+                    <img src="{{ card.image }}" alt="">
+                </figure>
+                <h2>$ {{value[item-1].total}}
+                    <a type="button" (click)='prueba()'>
+                        <span></span>
+                        <span></span>
+                        <strong>Comprar</strong>
+                        <span></span>
+                        <span></span>
+                    </a>
+                </h2>
 
             </div>
         </div>
+
     </div>
 
-
-</section>
+</div>
