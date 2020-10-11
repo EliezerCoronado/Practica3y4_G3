@@ -5,6 +5,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { PageComponent } from './pages/page.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
    component:PageComponent,
   children:[
     { path:'home', component:HomeComponent },
+    { path:'profile', component:ProfileComponent },
     { path:'', redirectTo: '/home', pathMatch: 'full' }
   ]
   },

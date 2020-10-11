@@ -10,6 +10,11 @@ import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component'
 import { HeaderComponent } from './shared/header/header.component';
 import { PageComponent } from './pages/page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MycardsComponent } from './pages/mycards/mycards.component';
+import { HistoryComponent } from './pages/history/history.component';
+import { PayComponent } from './pages/pay/pay.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     NopagefoundComponent,
     HeaderComponent,
-    PageComponent
+    PageComponent,
+    SidebarComponent,
+    ProfileComponent,
+    MycardsComponent,
+    HistoryComponent,
+    PayComponent
   ],
   imports: [
     BrowserModule,
