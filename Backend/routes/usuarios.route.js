@@ -10,7 +10,7 @@ const {validarJWT} = require('../middlewares/validar-jwt');
 
 const router = Router();
 
-router.get('/',validarJWT,getUsuario);
+router.get('/',getUsuario);
 
 
 

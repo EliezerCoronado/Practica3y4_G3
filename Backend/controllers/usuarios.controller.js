@@ -3,16 +3,28 @@ const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
-const getUsuario = (req,res)=>{
+const mysqConnection = require('../database');
+const mysqlConnection = require('../database');
+
+const getUsuario = async (req,res)=>{
 
     //Se busca un usuario de la base de datos
-
+    const respuestaBD = await mysqlConnection.query('select * from usuario',(err,rows,fields)=>{
+        if(!err){
+            res.json({
+                ok: true,
+                rows
+            });
+        }else{
+            console.log(err);
+        }
+    });
 
     //el uid se establece en el middleware de validar-jwt
-    res.json({
+    /*res.json({
         ok: true,
         uid: req.uid
-    });
+    });*/
 }
 
 const crearUsuario = async (req,res = response)=>{
@@ -33,7 +45,7 @@ const crearUsuario = async (req,res = response)=>{
         //AWAIT
 
         //SE GENERA JWT al momento de crear usuario
-        const token;
+        //const token;
         //const token = await generarJWT(usuarioObtenidoDB.uid);
 
         

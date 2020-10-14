@@ -24,7 +24,7 @@ const login = async(req,res = response)=>{
         }*/
 
         //SI LAS CREDENCIALES SON VALIDAS SE GENERA EL JWT
-        const token;
+        //const token;
         //const token = await generarJWT(usuarioObtenidoDB.uid);
 
         
