@@ -16,8 +16,8 @@
                     <figure>
                         <img src="{{ card.image }}" alt="">
                     </figure>
-                    <h4>$ {{value[item-1].total}}
-                        <a type="button" (click)='prueba()'>
+                    <h4>$ {{ value[item-1].total }}
+                        <a type="button" (click)='prueba(value[item-1].total, card.name)' data-toggle="modal" href='#modal' class="float-right">
                             <span></span>
                             <span></span>
                             <strong>Comprar</strong>
@@ -30,5 +30,50 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id='modal' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <span></span>
+        <div class="modal-content border">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" style="color: black;"> {{ GiftName }} ${{ GiftValue }} </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <form ngNativeValidate [formGroup]="formaCantidad" (ngSubmit)="cantidad()">
+
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5 form-group">
+                        <h4 style="color: black;">Cantidad<i class="mdi mdi-pencil-circle"></i></h4>
+                        <input (click)='cantidad()' id='Cantidad' formControlName="Cantidad" name="Cantidad" type="number" class="form-control" placeholder="Cantidad" required>
+                        <h4 style="color:red;" *ngIf="!formaValida">Valor invalido</h4>
+                        <h4 style="color:green;" *ngIf="formaValida">Monto Total ${{ GiftValue * formaCantidad.value.Cantidad }}</h4>
+
+                    </div>
+                </div>
+
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="fas fa-money-bill"></i>
+                        Pagar
+                    </button>
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-shopping-cart"></i>
+                        Agregar a la cesta
+                    </button>
+                </div>
+
+
+            </form>
+
+
+        </div>
     </div>
 </div>

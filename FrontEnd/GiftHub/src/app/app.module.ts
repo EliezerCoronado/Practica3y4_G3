@@ -15,6 +15,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MycardsComponent } from './pages/mycards/mycards.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { PayComponent } from './pages/pay/pay.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { PayComponent } from './pages/pay/pay.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

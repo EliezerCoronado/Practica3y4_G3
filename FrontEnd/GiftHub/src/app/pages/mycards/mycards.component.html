@@ -1,1 +1,29 @@
-<p>mycards works!</p>
+<div class="paginas">
+
+    <div class="border-bottom border-top">
+        <h2 style="color:black;">Mis Tarjetas</h2>
+        <div class="giftcard">
+            <div *ngFor="let card of cards" class="box">
+                <div class="glass"></div>
+                <div class="content">
+
+                    <h5>{{ card.name }}</h5>
+                    <figure>
+                        <img src="{{ card.image }}" alt="">
+                    </figure>
+                    <p>$ {{ card.value }}
+                        <a type="button" class="float-right">
+                            <span></span>
+                            <span></span>
+                            <strong>Regalar</strong>
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
