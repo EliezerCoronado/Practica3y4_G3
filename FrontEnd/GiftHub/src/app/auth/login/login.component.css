@@ -10,18 +10,9 @@ section {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(-30deg, #03a9f4 0%, #3a78b7 50%, #262626 50%, #607d8b 100%);
-    animation: animate 10s linear infinite;
+
 }
 
-@keyframes animate {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(360deg);
-    }
-}
 
 .box {
     position: relative;
@@ -31,9 +22,10 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 255, 255, 0.1);
+
     border: radius 6px;
     box-shadow: 0 5px 35px rgb(0, 0, 0, 0.2);
+    background: linear-gradient(235deg, gray, #010615, black);
 }
 
 .box::after {
@@ -99,9 +91,11 @@ section {
     margin-top: 20px;
 }
 
-.box .form a {
+.box .form button {
+    background-color: transparent;
     position: relative;
     display: inline-block;
+    border:none;
     padding: 8px 30px;
     margin: 8px 0;
     color: white;
@@ -112,24 +106,25 @@ section {
     letter-spacing: 1px;
 }
 
-.box .form a:hover {
+.box .form button:hover {
     background: #03a9f4;
     color: #050801;
     box-shadow: 0 0 5px #03a9f4, 0 0 25px #03a9f4, 0 0 50px #03a9f4, 0 0 200px #03a9f4;
 }
 
-.box .form a span {
+.box .form button span {
     position: absolute;
     display: block;
 }
 
-.box .form a span:nth-child(1) {
+.box .form button span:nth-child(1) {
     top: 0;
     left: 0;
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #03e9f4);
     animation: animate1 1s linear infinite;
+    
 }
 
 @keyframes animate1 {
@@ -142,12 +137,12 @@ section {
     }
 }
 
-.box .form a span:nth-child(2) {
+.box .form button span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
     height: 100%;
-    background: linear-gradient(180deg, transparent, #03e9f4);
+    background: linear-gradient(180deg, transparent, yellow);
     animation: animate2 1s linear infinite;
     animation-delay: 0.25s;
 }
@@ -162,12 +157,12 @@ section {
     }
 }
 
-.box .form a span:nth-child(3) {
+.box .form button span:nth-child(3) {
     bottom: -0;
     right: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(180deg, transparent, #03e9f4);
+    background: linear-gradient(270deg, transparent,red);
     animation: animate3 1s linear infinite;
     animation-delay: 0.5s;
 }
@@ -182,12 +177,12 @@ section {
     }
 }
 
-.box .form a span:nth-child(4) {
+.box .form button span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
     height: 100%;
-    background: linear-gradient(360deg, transparent, #03e9f4);
+    background: linear-gradient(360deg, transparent,green);
     animation: animate4 1s linear infinite;
     animation-delay: 0.75s;
 }

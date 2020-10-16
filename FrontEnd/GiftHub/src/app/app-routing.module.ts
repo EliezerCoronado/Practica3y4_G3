@@ -9,12 +9,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MycardsComponent } from './pages/mycards/mycards.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { PayComponent } from './pages/pay/pay.component';
-
+import { GuardGuard } from '../app/services/guard.guard' 
 
 const routes: Routes = [
 
-  { path:'',
+  { path:'home',
    component:PageComponent,
+   canActivate:[GuardGuard],
   children:[
     { path:'home', component:HomeComponent },
     { path:'profile', component:ProfileComponent },

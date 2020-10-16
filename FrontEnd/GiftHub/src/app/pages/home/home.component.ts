@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
   ObtenerTarjetas(){
     this.service.getCards().subscribe(resp=>{
       this.cards=resp;
-      console.log(this.cards);
+      // console.log(this.cards);
     },err=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 
