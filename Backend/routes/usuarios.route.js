@@ -10,15 +10,23 @@ const {validarJWT} = require('../middlewares/validar-jwt');
 
 const router = Router();
 
-router.get('/',getUsuario);
+/*
+    En las peticiones donde exista el middleware validarJWT
+    debe mandarse en el header x-token el token
+*/
 
+router.get('/',validarJWT,getUsuario);
 
 
 router.post('/',
-[    
-    check('usuario','El usuario es obligatorio').not().isEmpty(),
-    check('password','El password es obligatorio').not().isEmpty(),
+[   
+    check('dpi','El DPI es obligatorio').not().isEmpty(), 
+    check('nombres','Los nombres son obligatorios').not().isEmpty(),
+    check('apellidos','Los apellidos son obligatorios').not().isEmpty(),
     check('correo','No es una direccion de correo valida').isEmail(),
+    check('usuario','El usuario es obligatorio').not().isEmpty(),
+    check('fecha_nacimiento','La fecha de nacimiento es obligatoria').not().isEmpty(),
+    check('password','El password es obligatorio').not().isEmpty(),    
     validarCampos,
 ],
 crearUsuario);
@@ -26,14 +34,19 @@ crearUsuario);
 router.put('/:id',
 [
     //aqui van las validaciones de campos obligatorios
-    //a la espera de confirmar que campos serán obligatorios
     validarJWT,
-    check('usuario','El usuario es obligatorio').not().isEmpty(),
-    check('password','El password es obligatorio').not().isEmpty(),
+    check('dpi','El DPI es obligatorio').not().isEmpty(), 
+    check('nombres','Los nombres son obligatorios').not().isEmpty(),
+    check('apellidos','Los apellidos son obligatorios').not().isEmpty(),
     check('correo','No es una direccion de correo valida').isEmail(),
+    check('usuario','El usuario es obligatorio').not().isEmpty(),
+    check('fecha_nacimiento','La fecha de nacimiento es obligatoria').not().isEmpty(),
+    check('password','El password es obligatorio').not().isEmpty(),    
     validarCampos,
 ]
 ,actualizarUsuario);
+
+//router.delete('/:id',validarJWT,borrarUsuario);
 
 router.delete('/:id',validarJWT,borrarUsuario);
 

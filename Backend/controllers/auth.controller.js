@@ -1,38 +1,73 @@
 const {response} = require('express');
-const {validationResult} = require('express-validator');
+const {validationResult, query} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
+const mysqlConnection = require('../database');
 
 const login = async(req,res = response)=>{
 
+    //credenciales que vienen del frontend
     const {usuario, password} = req.body;
+
+    //consulta para buscar el usuario
+    const query_usuario = `select * from usuario where username = ? or correo = ?`;
 
     try {
 
-        //verificar si el usuario es un email
-        //si es un email verificar que exista un usuario registrado con ese emial
-        //si usuario es un nombre de usuario comun verificar que exista
+        //si el usuario ingresado es administrador
+        if(usuario === 'admin'){
+            if(password === 'admin'){
+                res.json({
+                    ok: true,
+                    administrador: true
+                });
+            }else{
+                res.json({
+                    ok: false,
+                    administrador: false
+                });
+            }
 
-        //si el usuario existe verificar su password
-        //usuarioObtenidoDB.password es la llamada al campo password del OBJETO usuario obtenido de la base de datos
-        //const validPassword = bcrypt.compareSync(password,usuarioObtenidoDB.password);
-        /*if(!validPassword){
-            return res.status(400).json({
-                ok: false,
-                msg: 'credenciales no validas'
+        }else{
+
+            await mysqlConnection.query(query_usuario,[usuario,usuario],async (err,rows,fields)=>{
+                if(!err){
+                    //Se verifica si existe el usuario o correo que se esta buscando existe
+                    if(rows[0] != null){
+                        //se desencripta la password para compararla con el password ingresado
+                        const validPassword = bcrypt.compareSync(password,rows[0].password);
+
+                        //si la contraseña no es valida
+                        if(!validPassword){
+
+                            return res.status(400).json({
+                                ok: false,
+                                msg: 'credenciales no validas'
+                            });
+
+                        }else{//si la contraseña es valida
+
+                            const token = await generarJWT(rows[0].id_usuario);
+                            
+                            //se envia la respuesta con el token y la informacion del usuario logueado
+                            res.json({
+                                ok: true,
+                                datos_usuario : rows[0],
+                                token: token
+                            });
+                        }
+                    }else{
+                        return res.json({
+                            ok: false,
+                            msg: 'Usuario o correo electronico no encontrado'
+                        });
+                    }
+                    
+                }else{
+                    console.log(err);
+                }
             });
-        }*/
-
-        //SI LAS CREDENCIALES SON VALIDAS SE GENERA EL JWT
-        //const token;
-        //const token = await generarJWT(usuarioObtenidoDB.uid);
-
-        
-        res.json({
-            ok: true,
-            token,
-            msg: 'se inicio sesion'
-        });
+        }
         
     } catch (error) {
         console.log(error);
