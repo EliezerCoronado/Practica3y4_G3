@@ -30,20 +30,20 @@ describe('HomeComponent', () => {
   });
 
   it('Debe retornar true por que la cantidad es mayor o igual a 1 ', () => {
-    const cantidad = component.formaCantidad.get('Cantidad').setValue('1');
+    component.formaCantidad.get('Cantidad').setValue('1');
     const resp = component.cantidad();
     expect(resp).toBeTruthy();
   });
 
   it('Debe retornar false por que la cantidad es mayor o igual a 0 ', () => {
-    const cantidad = component.formaCantidad.get('Cantidad').setValue('0');
+    component.formaCantidad.get('Cantidad').setValue('0');
     const resp = component.cantidad();
     expect(resp).toBeFalsy();
   });
 
 
   it('Debe de retornar un numero mayor a 0', () => {
-    const cantidad = component.formaCantidad.get('Cantidad');
+    component.formaCantidad.get('Cantidad');
     const resp = component.defaultCantidad('10','Google Play');
     expect(resp).toBeGreaterThan(0);
   });

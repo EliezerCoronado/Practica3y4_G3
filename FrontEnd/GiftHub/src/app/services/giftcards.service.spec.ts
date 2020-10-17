@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { isObservable, Observable, observable } from 'rxjs';
 
 import { GiftcardsService } from './giftcards.service';
 

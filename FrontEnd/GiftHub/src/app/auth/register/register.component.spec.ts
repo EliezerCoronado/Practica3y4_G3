@@ -49,14 +49,14 @@ describe('RegisterComponent', () => {
 
   it('Debe de llamar al servicio de crearUsuario', () => {
     
-    const user = component.forma.get('user').setValue('user2');
-    const userName = component.forma.get('userName').setValue('user2');
-    const password = component.forma.get('password').setValue('1234');
-    const password2 = component.forma.get('password2').setValue('1234');
-    const email = component.forma.get('email').setValue('user2@gmail.com');
-    const lastName = component.forma.get('lastName').setValue('apellido');
-    const dpi = component.forma.get('dpi').setValue('512345678910');
-    const edad = component.forma.get('edad').setValue('03/03/1991');
+    component.forma.get('user').setValue('user2');
+    component.forma.get('userName').setValue('user2');
+    component.forma.get('password').setValue('1234');
+    component.forma.get('password2').setValue('1234');
+    component.forma.get('email').setValue('user2@gmail.com');
+    component.forma.get('lastName').setValue('apellido');
+    component.forma.get('dpi').setValue('512345678910');
+    component.forma.get('edad').setValue('03/03/1991');
     const espia = spyOn(component.service,'crearUsuario').and.callThrough();
     component.registrar();
     expect(espia).toHaveBeenCalled();
