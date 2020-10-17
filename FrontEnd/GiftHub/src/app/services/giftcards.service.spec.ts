@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-
+import { environment } from '../../environments/environment';
 import { GiftcardsService } from './giftcards.service';
 
 describe('GiftcardsService', () => {
@@ -71,9 +71,9 @@ describe('GiftcardsService', () => {
   it('login correcto',()=>{
     const usuario = {
       userName: 'user2',
-      password: '123'
+      password: environment.testValue
     }
-    const resp:any = service.login(usuario);
+    service.login(usuario);
     expect(true).toBe(true);
   });
 
