@@ -196,3 +196,7 @@ section {
         bottom: 100%;
     }
 }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}

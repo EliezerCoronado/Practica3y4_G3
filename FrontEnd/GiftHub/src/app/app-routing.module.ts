@@ -13,7 +13,7 @@ import { GuardGuard } from '../app/services/guard.guard'
 
 const routes: Routes = [
 
-  { path:'home',
+  { path:'',
    component:PageComponent,
    canActivate:[GuardGuard],
   children:[

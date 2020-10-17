@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GiftcardsService } from 'src/app/services/giftcards.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -30,13 +31,38 @@ export class RegisterComponent implements OnInit {
   }
 
   registrar(){
-    console.log(this.forma.value);
+
+
+    if(this.forma.value.password !== this.forma.value.password2){
+      Swal.fire({
+        icon:'error',
+        title:'Error',
+        text:'las contrasenias no coinciden'
+      });
+      return false;
+    }
+  
     if(this.forma.invalid){
       return false;
     }
     this.service.crearUsuario(this.forma.value).
     subscribe((resp:any)=>{
-      console.log(resp);
+      if(resp.ok===true){
+        
+        Swal.fire({
+          icon:'success',
+          title:'Ok',
+          text:resp.msg
+        });
+      }else{
+        Swal.fire({
+          icon:'error',
+          title:'Error',
+          text:resp.msg_error
+        });
+
+      }
+      
     },err=>{
       console.log(err);
     });
