@@ -2,12 +2,15 @@
     Path: /api/login
 */
 
-const {Router} = require('express');
+const express = require('express');
 const {check} = require('express-validator');
 const {login} = require('../controllers/auth.controller');
 const {validarCampos} = require('../middlewares/validar-campos');
 
-const router = Router();
+let app = express();
+app.disable("x-powered-by");
+
+let router = express.Router();
 
 router.post('/',
 [

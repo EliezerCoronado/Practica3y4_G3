@@ -25,8 +25,8 @@ const router = require('../routes/usuarios.route');
 const getUsuario = async (req,res)=>{
     const id_usuario = req.uid;
 
-    const query = `select * from usuario where id_usuario = ?`;
-    await mysqlConnection.query(query,[id_usuario],(err,rows,fields)=>{
+    let queryGet = `select * from usuario where id_usuario = ?`;
+    await mysqlConnection.query(queryGet,[id_usuario],(err,rows,fields)=>{
         if(!err){
             res.json({
                 ok: true,
@@ -45,7 +45,7 @@ const crearUsuario = async (req,res = response)=>{
     let {dpi,nombres,apellidos,correo,usuario,fecha_nacimiento, password} = req.body;
     
     //Codigo DML para insertar usuario en la base de datos
-    const query =  `INSERT INTO usuario (
+    const queryInsert =  `INSERT INTO usuario (
         dpi,
         Nombres,
         Apellidos,
@@ -64,26 +64,26 @@ const crearUsuario = async (req,res = response)=>{
         password = bcrypt.hashSync(password,salt);
 
         //Llamada a la conexion de base de datos para la insercion de usuario
-        await mysqlConnection.query(query,
+        await mysqlConnection.query(queryInsert,
             [dpi,nombres,apellidos,correo,usuario,fecha_nacimiento, password],async (err,rows,fields)=>{
             //Si no hay errores 
             if(!err){
                 
-                await mysqlConnection.query(query2,[dpi,usuario],async (err,rows,fields)=>{
+                await mysqlConnection.query(query2,[dpi,usuario],async (error,rowsQuery,fieldsQuery)=>{
                     //SE GENERA JWT al momento de crear usuario
-                    if(!err){
-                        const token = await generarJWT(rows[0].id_usuario);
+                    if(!error){
+                        const token = await generarJWT(rowsQuery[0].id_usuario);
                         res.json({
                             ok: true,
                             token: token,
-                            usuario: rows[0],
+                            usuario: rowsQuery[0],
                             msg:'usuario creado satisfactoriamente'
                         });
                     }else{
-                        console.log(err.code);
+                        console.log(error.code);
                         return res.json({
                             ok:false,
-                            error: err.code
+                            error: error.code
                         });
                     }                    
                 });
@@ -116,7 +116,7 @@ const actualizarUsuario = async (req,res = response)=>{
 
     let {dpi,nombres,apellidos,correo,usuario,fecha_nacimiento, password} = req.body;
 
-    const query = `UPDATE usuario
+    let queryUpdate = `UPDATE usuario
                     SET dpi = ?, 
                     Nombres = ?,
                     Apellidos = ?,
@@ -131,7 +131,7 @@ const actualizarUsuario = async (req,res = response)=>{
         const salt = bcrypt.genSaltSync();
         password = bcrypt.hashSync(password,salt);
 
-        await mysqlConnection.query(query,
+        await mysqlConnection.query(queryUpdate,
             [dpi,nombres,apellidos,correo,usuario,fecha_nacimiento,password,id_usuario],
             (err,rows,fields)=>{
             if(!err){
@@ -145,8 +145,6 @@ const actualizarUsuario = async (req,res = response)=>{
                 console.log(err.code);
                 if(err.code === 'ER_DUP_ENTRY'){
                     msgError = 'Los datos de nombre de usuario, correo o DPI ya existen';
-                }else{
-                    
                 }
 
                 return res.json({
@@ -170,11 +168,11 @@ const actualizarUsuario = async (req,res = response)=>{
 const borrarUsuario = async (req,res = response)=>{
     const id_usuario = req.params.id;
 
-    const query = `DELETE FROM usuario WHERE id_usuario = ?`;
+    let queryDelete = `DELETE FROM usuario WHERE id_usuario = ?`;
 
     try {
 
-        await mysqlConnection.query(query,[id_usuario],(err,rows,fields)=>{
+        await mysqlConnection.query(queryDelete,[id_usuario],(err,rows,fields)=>{
             if(!err){
                 if(rows.affectedRows == 0){
                     return res.json({

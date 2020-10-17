@@ -2,13 +2,16 @@
     Path: /api/usuarios
 */
 
-const {Router} = require('express');
+const express = require('express');
 const {check} = require('express-validator');
 const {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario} =require('../controllers/usuarios.controller');
 const {validarCampos} = require('../middlewares/validar-campos');
 const {validarJWT} = require('../middlewares/validar-jwt');
 
-const router = Router();
+let app = express();
+app.disable("x-powered-by");
+
+let router = express.Router();
 
 /*
     En las peticiones donde exista el middleware validarJWT
