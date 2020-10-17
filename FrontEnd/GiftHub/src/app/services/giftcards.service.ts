@@ -67,7 +67,6 @@ export class GiftcardsService {
   estaLogueado(){
     this.cargarStorage();
     if (this.token.length > 10){
-      console.log('esta logueado pe');
       return true;
     }else{
       return false;
@@ -91,9 +90,7 @@ export class GiftcardsService {
     return this.http.get(url);
     }
 
-  public validarToken(){
-    return false;
-  }
+
 
   public crearUsuario(forma:any){
     const usuario = {
@@ -134,23 +131,7 @@ export class GiftcardsService {
          console.log(resp);
          return true;
         }
-        else{
-         Swal.fire({
-           icon:'error',
-           title:'Error',
-           text:'credenciales no validas'
-         });
-         return false;
-        }  
-       }, err=>{
-         Swal.fire({
-           icon:'error',
-           title:'Error',
-           text:err.error.msg
-         });
-         console.log(err);
-         return false;
-   
+
        }
          
       ));

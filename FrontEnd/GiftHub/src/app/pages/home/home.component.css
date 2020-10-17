@@ -63,6 +63,7 @@
 img {
     width: 180px;
     height: 210px;
+    object-fit: cover;
 }
 
 .box .content a {

@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HeaderComponent } from './header.component';
 
@@ -8,7 +10,8 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent ],
+      imports:[RouterTestingModule.withRoutes([])]
     })
     .compileComponents();
   }));
@@ -19,7 +22,15 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Debe de crear el componente header', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Debe navegar al /login', () => {
+    const routerstub: Router = TestBed.get(Router);
+    spyOn(routerstub, 'navigate');
+    component.salir();
+    expect(routerstub.navigate).toHaveBeenCalledWith(["/login"]);
+  });
+
 });

@@ -37,17 +37,17 @@ export class HomeComponent implements OnInit {
   ObtenerValues(){
     this.service.getValue().subscribe((resp:any)=>{
       this.value=resp;
-      console.log(this.value)
-      console.log(this.value[1-1].total);
+      // console.log(this.value)
+      //console.log(this.value[1-1].total);
     },err=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 
-  prueba(valor,nombre){
+  defaultCantidad(valor,nombre){
     this.GiftName = nombre;
     this.GiftValue = valor;
-    (<HTMLInputElement>document.getElementById("Cantidad")).value = '1';
+    return (<HTMLInputElement>document.getElementById("Cantidad")).value = '1';
 
 
   }

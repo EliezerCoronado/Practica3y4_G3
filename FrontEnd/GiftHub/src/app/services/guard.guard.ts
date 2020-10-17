@@ -7,16 +7,13 @@ import { GiftcardsService } from './giftcards.service';
 })
 export class GuardGuard implements CanActivate {
 
-  constructor(private router: Router,
-              private service: GiftcardsService,
+  constructor(public router: Router,
+              public service: GiftcardsService,
 
               ){
 
   }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {
-      console.log('paso por el guard');
+  canActivate() {
       if(this.service.estaLogueado()){
         return true;
       }else{
