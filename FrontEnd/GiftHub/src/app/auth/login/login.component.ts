@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  Prueba(){
+    console.log('prueba');
+  }
+
 
   ingresar(){
 
