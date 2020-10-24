@@ -37,14 +37,12 @@ crearUsuario);
 router.put('/:id',
 [
     //aqui van las validaciones de campos obligatorios
-    validarJWT,
     check('dpi','El DPI es obligatorio').not().isEmpty(), 
     check('nombres','Los nombres son obligatorios').not().isEmpty(),
     check('apellidos','Los apellidos son obligatorios').not().isEmpty(),
     check('correo','No es una direccion de correo valida').isEmail(),
     check('usuario','El usuario es obligatorio').not().isEmpty(),
     check('fecha_nacimiento','La fecha de nacimiento es obligatoria').not().isEmpty(),
-    check('password','El password es obligatorio').not().isEmpty(),    
     validarCampos,
 ]
 ,actualizarUsuario);

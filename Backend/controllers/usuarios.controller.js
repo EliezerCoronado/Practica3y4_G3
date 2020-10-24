@@ -112,11 +112,11 @@ const crearUsuario = async (req,res = response)=>{
 }
 
 const actualizarUsuario = async (req,res = response)=>{
-    const id_usuario = req.params.id;
+    const id_usuario = parseInt(req.params.id,10);
 
     let {dpi,nombres,apellidos,correo,usuario,fecha_nacimiento, password} = req.body;
 
-    let queryUpdate = `UPDATE usuario
+    let queryUpdate = password !== undefined ? `UPDATE usuario
                     SET dpi = ?, 
                     Nombres = ?,
                     Apellidos = ?,
@@ -124,15 +124,27 @@ const actualizarUsuario = async (req,res = response)=>{
                     username = ?,
                     fecha_nacimiento = STR_TO_DATE(?, '%d/%m/%Y'),
                     password = ?
+                    WHERE id_usuario = ?`
+                    : `UPDATE usuario
+                    SET dpi = ?, 
+                    Nombres = ?,
+                    Apellidos = ?,
+                    correo = ?,
+                    username = ?,
+                    fecha_nacimiento = STR_TO_DATE(?, '%d/%m/%Y')
                     WHERE id_usuario = ?`;
 
     try {
         //Codigo para encriptar contraseña
-        const salt = bcrypt.genSaltSync();
-        password = bcrypt.hashSync(password,salt);
+        if(password !== undefined){
+            const salt = bcrypt.genSaltSync();
+            password = bcrypt.hashSync(password,salt);
+        }
+
+        let arrayParameters = password !== undefined ? [dpi,nombres,apellidos,correo,usuario,fecha_nacimiento,password,id_usuario] : [dpi,nombres,apellidos,correo,usuario,fecha_nacimiento,id_usuario];
 
         await mysqlConnection.query(queryUpdate,
-            [dpi,nombres,apellidos,correo,usuario,fecha_nacimiento,password,id_usuario],
+            arrayParameters,
             (err,rows,fields)=>{
             if(!err){
                 res.json({
@@ -142,7 +154,6 @@ const actualizarUsuario = async (req,res = response)=>{
                 });
             }else{
                 let msgError = '';
-                console.log(err.code);
                 if(err.code === 'ER_DUP_ENTRY'){
                     msgError = 'Los datos de nombre de usuario, correo o DPI ya existen';
                 }
