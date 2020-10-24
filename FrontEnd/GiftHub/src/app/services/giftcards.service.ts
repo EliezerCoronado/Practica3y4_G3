@@ -108,6 +108,45 @@ export class GiftcardsService {
 
   }
 
+  public updateUserInfo(form:any){
+    const user = {
+      nombres:form.Nombre,
+      apellidos:form.Apellido,
+      usuario:form.user,
+      dpi: form.dpi,
+      correo: form.email,
+      fecha_nacimiento:form.edad[8]+form.edad[9]+'/'+form.edad[5]+form.edad[6]+'/'+form.edad[0]+form.edad[1]+form.edad[2]+form.edad[3]
+    }
+
+    const url = this.SERVER_NODE + '/usuarios/'+localStorage.getItem('id');
+    return this.http.put(url,user).pipe(
+      map((resp:any)=>{
+
+        if (resp.data === true || resp.ok===true){
+          this.saveStorage(user.usuario,
+                           localStorage.getItem('token'), 
+                           user.nombres,
+                           user.apellidos,
+                           user.dpi,
+                           localStorage.getItem('id'),
+                           localStorage.getItem('fecha_nacimiento'),
+                           user.correo
+                           );
+         console.log(resp);
+         return resp;
+        }
+
+       }
+         
+      )
+    );
+  }
+
+  public updateUserPassword(user:any){
+    const url = this.SERVER_NODE + '/usuarios/'+localStorage.getItem('id');
+    return this.http.put(url,user);
+  }
+
   public login(forma:any){
     const usuario = {
       usuario: forma.userName,
