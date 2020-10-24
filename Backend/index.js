@@ -19,6 +19,7 @@ app.use(express.json());
 //RUTAS
 app.use('/api/usuarios',require('./routes/usuarios.route'));
 app.use('/api/login',require('./routes/auth.route'));
+app.use('/api/cards',require('./routes/cards.route'));
 
 app.listen(3000,()=>{
     console.log("server on port : 3000");

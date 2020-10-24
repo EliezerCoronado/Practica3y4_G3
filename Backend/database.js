@@ -4,7 +4,7 @@ const mysqlConnection  = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'gifthub',
+    database: 'gifthub2',
     multipleStatements: true
 });
 
