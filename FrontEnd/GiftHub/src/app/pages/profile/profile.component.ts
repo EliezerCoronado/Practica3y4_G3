@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { GiftcardsService } from 'src/app/services/giftcards.service';
 import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -35,17 +36,49 @@ export class ProfileComponent implements OnInit {
   saveUserInfo(){
     this.service.updateUserInfo(this.formUserInfo.value).
     subscribe((resp:any)=>{
-      if(resp.ok===true){
-        window.alert("Cambios guardados");
-      }else{
-        window.alert("Error, no se han podido guardar los cambios");
+      console.log(resp);
+
+      if(resp === undefined){
+        console.log(resp);
+        Swal.fire({
+          icon:'error',
+          title:'Error',
+          text: 'Error, no se han podido guardar los cambios'
+        });
+        return false;
+      
       }
+
+      if(resp.ok===true){
+
+        Swal.fire({
+          icon:'success',
+          title:'Success',
+          text: 'Cambios guardados'
+        });
+        return true;
+      }
+
+
+
     },err=>{
       console.log(err);
     });
   }
 
   saveUserPassword(){
+
+    if(this.formPassword.value.newPass !== this.formPassword.value.confirmPass){
+      Swal.fire({
+        icon:'error',
+        title:'Error',
+        text: 'Las contrasenias no coinciden'
+      });
+      return false;
+    }
+
+    
+
     const user = {
       nombres:localStorage.getItem('nombre'),
       apellidos:localStorage.getItem('apellido'),
@@ -53,16 +86,23 @@ export class ProfileComponent implements OnInit {
       dpi: localStorage.getItem('dpi'),
       correo: localStorage.getItem('correo'),
       fecha_nacimiento: localStorage.getItem('fecha_nacimiento')[8]+localStorage.getItem('fecha_nacimiento')[9]+'/'+localStorage.getItem('fecha_nacimiento')[5]+localStorage.getItem('fecha_nacimiento')[6]+'/'+localStorage.getItem('fecha_nacimiento')[0]+localStorage.getItem('fecha_nacimiento')[1]+localStorage.getItem('fecha_nacimiento')[2]+localStorage.getItem('fecha_nacimiento')[3] ,
-      password: this.formPassword.value.newPass
+      password: this.formPassword.value.newPass,
+      password2: this.formPassword.value.confirmPass
     }
+    console.log(user.password);
+    console.log(user.password2);
+    
 
     this.service.updateUserPassword(user).
     subscribe((resp:any)=>{
       if(resp.ok===true){
-        window.alert("Cambios guardados");
-        this.formPassword['newPass'] = '';
-      }else{
-        window.alert("Error, no se han podido guardar los cambios");
+        Swal.fire({
+          icon:'success',
+          title:'Success',
+          text: 'Nueva contrasnia guardada'
+        });
+        this.formPassword['newPass'] = '';        
+        return true;
       }
     },err=>{
       console.log(err);

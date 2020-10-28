@@ -178,5 +178,11 @@ export class GiftcardsService {
     
 
 
+  public getCatalogo(){
+    const url = this.SERVER_NODE + '/cards/infoTarjeta'
+    return this.http.get(url);
+  }
+
+
 
 }

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   formaValida:boolean = true;
 
   ngOnInit(): void {
-    this.ObtenerTarjetas();
+    this.ObtenerCatalogo()
     this.ObtenerValues();
     this.formaCantidad = new FormGroup({
       Cantidad: new FormControl(1, [Validators.required, Validators.pattern("^[0-9]*$")])
@@ -28,10 +28,18 @@ export class HomeComponent implements OnInit {
   ObtenerTarjetas(){
     this.service.getCards().subscribe(resp=>{
       this.cards=resp;
-      // console.log(this.cards);
+       console.log(this.cards);
     },err=>{
       // console.log(err);
     })
+  }
+
+
+  ObtenerCatalogo(){
+    this.service.getCatalogo().subscribe((resp:any)=>{
+      this.cards = resp.tarjetas;
+      console.log(this.cards);
+    });
   }
 
   ObtenerValues(){
