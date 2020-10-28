@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
   Prueba(){
     console.log('prueba');
     console.log('prueba 2');
-    console.log('prueba 3')
+    console.log('prueba 3');
+    console.log('prueba 4');
   }
 
 
