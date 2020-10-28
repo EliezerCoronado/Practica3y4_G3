@@ -222,4 +222,25 @@ const borrarUsuario = async (req,res = response)=>{
     }
 }
 
-module.exports = {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario}
+const getCualquierUsuario = async(req,res)=>{
+    const id_usuario = req.body.id;
+
+    let queryGet = `select * from usuario where id_usuario = ?`;
+    await mysqlConnection.query(queryGet,[id_usuario],(err,rows,fields)=>{
+        if(!err){
+            res.json({
+                ok: true,
+                usuario: rows                
+            });
+        }else{
+            console.log(err);
+            res.json({
+                ok:false,
+                msg: 'Error obteniendo otro usuario'
+            });
+        }
+    });
+    
+}
+
+module.exports = {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario,getCualquierUsuario,}
