@@ -53,6 +53,13 @@ export class HomeComponent implements OnInit {
   }
 
   cantidad(){
+
+    let date =  new Date();
+    let id_card = date.getDate()+''+(date.getMonth()+1)+''+date.getFullYear()+''+
+                  date.getHours()+''+date.getMinutes()+''+date.getSeconds()+''+date.getMilliseconds();
+
+    console.log(id_card);
+
     if(  this.formaCantidad.value.Cantidad !== undefined && 
          this.formaCantidad.value.Cantidad > 0){
            this.formaValida = true;
