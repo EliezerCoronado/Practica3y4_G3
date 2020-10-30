@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const mysqlConnection  = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'password',
     database: 'gifthub2',
     multipleStatements: true
 });

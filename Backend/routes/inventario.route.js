@@ -11,7 +11,7 @@ app.disable("x-powered-by");
 let router = express.Router();
 
 //ruta para obtener el inventario de tarjetas de un usuario especifico
-router.get('/',obtenerInventarioUsuario);
+router.post('/',obtenerInventarioUsuario);
 
 //ruta para obtener el inventario de tadas las tarjetas registradas 
 router.get('/all',obtenerInventarioGeneral);
