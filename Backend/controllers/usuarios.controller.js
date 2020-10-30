@@ -8,7 +8,7 @@ const mysqlConnection = require('../database');
 const router = require('../routes/usuarios.route');
 
 
-/*const getUsuario = async (req,res)=>{
+const getAllUsers = async (req,res)=>{
     //Se buscan todos los usuarios usuario de la base de datos
     const respuestaBD = await mysqlConnection.query('select * from usuario',(err,rows,fields)=>{
         if(!err){
@@ -18,9 +18,13 @@ const router = require('../routes/usuarios.route');
             });
         }else{
             console.log(err);
+            res.json({
+                ok:false,
+                msg: 'Error al obtener todos los usuarios'
+            });
         }
     });
-}*/
+}
 
 const getUsuario = async (req,res)=>{
     const id_usuario = req.uid;
@@ -243,4 +247,4 @@ const getCualquierUsuario = async(req,res)=>{
     
 }
 
-module.exports = {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario,getCualquierUsuario,}
+module.exports = {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario,getCualquierUsuario,getAllUsers}

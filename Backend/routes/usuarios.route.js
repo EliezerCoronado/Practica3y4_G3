@@ -4,7 +4,7 @@
 
 const express = require('express');
 const {check} = require('express-validator');
-const {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario,getCualquierUsuario} =require('../controllers/usuarios.controller');
+const {getUsuario,crearUsuario,actualizarUsuario,borrarUsuario,getCualquierUsuario,getAllUsers} =require('../controllers/usuarios.controller');
 const {validarCampos} = require('../middlewares/validar-campos');
 const {validarJWT} = require('../middlewares/validar-jwt');
 
@@ -22,6 +22,9 @@ let router = express.Router();
 
 //ruta para obtener un usuario logeado
 router.get('/',validarJWT,getUsuario);
+
+//ruta para obtener todos los usuarios
+router.get('/all',getAllUsers);
 
 //ruta para obtener cualquier otro usuario mandando en el body de la peticion el id 
 router.get('/any',getCualquierUsuario);
@@ -58,6 +61,8 @@ router.put('/:id',
 
 //ruta para borrar un usuario
 router.delete('/:id',validarJWT,borrarUsuario);
+
+
 
 
 
