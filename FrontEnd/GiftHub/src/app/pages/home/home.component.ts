@@ -1,5 +1,7 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { GiftcardsService } from '../../services/giftcards.service';
 
 @Component({
@@ -11,13 +13,23 @@ export class HomeComponent implements OnInit {
 
   constructor(public service:GiftcardsService) { }
   GiftName:string='';
+  GiftImg:string='';
+  GiftId:string='';
+  IdValue:string='';
   GiftValue:number = 0;
   cards:any=[];
   value:any=[];
+  carrito:any=[];
+  detalle:any=[];
   formaCantidad:FormGroup;
   formaValida:boolean = true;
 
   ngOnInit(): void {
+    if(localStorage.getItem('detalle')){
+      console.log('no existe');
+      this.detalle = JSON.parse(localStorage.getItem('detalle'));
+    }
+    
     this.ObtenerCatalogo()
     this.ObtenerValues();
     this.formaCantidad = new FormGroup({
@@ -43,20 +55,35 @@ export class HomeComponent implements OnInit {
   }
 
   ObtenerValues(){
-    this.service.getValue().subscribe((resp:any)=>{
-      this.value=resp;
-      // console.log(this.value)
+    this.service.getValueCatalogo().subscribe((resp:any)=>{
+      this.value=resp.valores;
+       console.log(this.value)
       //console.log(this.value[1-1].total);
     },err=>{
       // console.log(err);
     })
   }
 
-  defaultCantidad(valor,nombre){
+  defaultCantidad(valor,nombre, cardId,valueId,cardImg){
+    this.IdValue=valueId;
+    this.GiftId = cardId;
     this.GiftName = nombre;
     this.GiftValue = valor;
+    this.GiftImg = cardImg;
+    this.formaValida = true;
+    this.formaCantidad.value.Cantidad = 1;
     return (<HTMLInputElement>document.getElementById("Cantidad")).value = '1';
+  }
 
+  vistaCantidad(){
+    if(  this.formaCantidad.value.Cantidad !== undefined && 
+      this.formaCantidad.value.Cantidad > 0){
+        this.formaValida = true;
+        return  true;
+    }else{
+      this.formaValida = false;
+      return false;
+ }
 
   }
 
@@ -78,5 +105,51 @@ export class HomeComponent implements OnInit {
     }
 
   }
+
+  registrarFactura(){
+
+  }
+
+
+  agregarCarrito(){
+
+    if(this.formaValida === false){
+      return false;
+    }
+
+    let giftcard:any ={
+      'card_id':this.GiftId,
+      'value_id':this.IdValue,
+      'cantidad':this.formaCantidad.value.Cantidad,
+      'nombre': this.GiftName,
+      'img':this.GiftImg,
+      'valor':this.value[Number(this.IdValue)-1].total
+    }
+
+    let update=false;
+    this.detalle.forEach(element => {      
+      if(element.card_id === giftcard.card_id && element.value_id === giftcard.value_id){
+        element.cantidad = element.cantidad + giftcard.cantidad;
+        update=true;
+      }
+
+
+    });
+
+    
+    if(!update){
+      this.detalle.push(giftcard);
+    }
+    console.log(giftcard);
+    console.log(this.detalle);
+
+    document.getElementById('modal').click();
+    localStorage.setItem('detalle',JSON.stringify(this.detalle));
+    Swal.fire('Success','GiftCards agregados', 'success');
+
+
+  }
+
+
 
 }

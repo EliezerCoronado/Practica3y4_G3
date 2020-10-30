@@ -183,6 +183,21 @@ export class GiftcardsService {
     return this.http.get(url);
   }
 
+  public getValueCatalogo(){
+    const url = this.SERVER_NODE + '/cards/infoValores'
+    return this.http.get(url);
+  }
+
+  public factura(detalle:any){
+    const url = this.SERVER_NODE+'/factura/'
+    return this.http.post(url,detalle);
+  }
+
+  public createMyGiftCards(GiftCard){
+    const url = this.SERVER_NODE+'/inventario/';
+    return this.http.post(url, GiftCard);
+  }
+
 
 
 }

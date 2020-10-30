@@ -2,57 +2,91 @@
 
     <div class="d-flex justify-content-center">
         <h1>
-            Mi perfil
+            Pago de Tarjetas
         </h1>
     </div>
     <br>
 
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 ">
+            <div class="card card-body ">
+
+                <table class="table table-striped">
+                    <caption><strong>Total ${{Total}}</strong></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor = 'let item of detalle; let i = index'> 
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{item.nombre}}</td>
+                            <td>${{item.valor}}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>${{ item.cantidad * item.valor }}</td>
+                            <td><button (click)='eliminar(i)' class="btn btn-danger"><i class="fa fa-trash-alt"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <br>
+
     <div>
-        <form ngNativeValidate>
+        <form ngNativeValidate [formGroup] = 'forma' (ngSubmit) = 'registrarTarjetaCredito()' >
             <div class="row justify-content-md-center">
-                <div class="col-md-5">
+                <div class="col-md-7">
                     <div class="card card-body ">
                         <div class="row">
-                            <div class="col-sm-6 col-xs-6">
+                            <div class="col-sm-8 col-xs-8">
 
                                 <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input formControlName="firstName" name="firstName" type="text" class="form-control" placeholder="Nombre" required>
+                                    <label>No. Tarjeta</label>
+                                    <input formControlName="noTarjeta" name="noTarjeta" type="number" class="form-control" placeholder="No. Tarjeta" required>
+                                    <span style="color:red;" *ngIf="!tarjeta">La Tarjeta no es Valida</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Usuario</label>
-                                    <input formControlName="secondName" name="secondName" type="text" class="form-control" placeholder="Usuario">
+                                    <label>Nombre en la Tarjeta</label>
+                                    <input formControlName="nameCard" name="nameCard" type="text" class="form-control" placeholder="Nombre en la Tarjeta" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Fecha de Nacimiento</label>
-                                    <input formControlName="birthday" name="birthday" type="date" class="form-control" required>
+                                    <label>Fecha Expiracion(MM/YY)</label>
+                                    <input formControlName="expirationDate" name="expirationDate" type="text" class="form-control" placeholder="MM/YY" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Codigo Verificador</label>
+                                    <input formControlName="verifierCode" name="verifierCode" type="number" class="form-control" placeholder="Codigo Verificador" required>
+                                    <span style="color:red;" *ngIf="!codigo">El codigo no es valido</span>
+                                </div>
+
+                                <div>
+                                    <label>Tasa de Cambio: <span style="color:green"><strong>Q{{ Tasa }}</strong></span></label>
+                                </div>
+
+                                <div>
+                                    <label>Total a Pagar: <span style="color:green"><strong>Q{{ Tasa * Total }}</strong></span></label>
                                 </div>
 
 
                                 <div>
                                     <button type="submit" class="btn btn-success btn-lg ">
-                                        <em class="fas fa-save"></em> Guardar
+                                        <em class="fas fa-money-bill"></em> Pagar
                                     </button>
                                 </div>
 
 
                             </div>
-                            <div class="col-sm-6 col-xs-6">
-
-                                <div class="form-group">
-                                    <label>Apellido</label>
-                                    <input formControlName="firstLastName" name="firstLastName" type="text" class="form-control" placeholder="Apellido" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>DPI</label>
-                                    <input formControlName="secondLastName" name="secodLastName" type="text" class="form-control" placeholder="DPI">
-                                </div>
-                                <div class="form-group">
-                                    <label>Correo</label>
-                                    <input formControlName="secondLastName" name="secodLastName" type="email" class="form-control" placeholder="Correo">
-                                </div>
-
-                            </div>
+           
 
                         </div>
 
@@ -61,35 +95,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-5">
-                    <div class="card card-body ">
-
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-6">
-                                <div class="form-group">
-                                    <label>Nueva Contrasenia</label>
-                                    <input formControlName="address" name="address" type="text" class="form-control" placeholder="Contrase">
-                                </div>
-
-                                <div>
-                                    <button type="submit" class="btn btn-success btn-lg ">
-                                        <em class="fas fa-save"></em> 
-                                        Cambiar
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 col-xs-6">
-                                <div class="form-group">
-                                    <label>Confirmar Contrasenia</label>
-                                    <input formControlName="address" name="address" type="text" class="form-control" placeholder="Confirmar Contraseña">
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
+ 
             </div>
 
 

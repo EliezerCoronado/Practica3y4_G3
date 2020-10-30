@@ -28,18 +28,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  Prueba(){
-    console.log('prueba');
-    console.log('prueba 2');
-    console.log('prueba 3');
-    console.log('prueba 4');
-    console.log('prueba 5');
-    console.log('prueba 6');
-    console.log('prueba 7');
-    console.log('prueba 8');
-    console.log('prueba 9');
-    
-  }
+
 
 
   ingresar(){

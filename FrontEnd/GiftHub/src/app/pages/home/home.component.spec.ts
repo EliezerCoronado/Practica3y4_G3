@@ -44,7 +44,7 @@ describe('HomeComponent', () => {
 
   it('Debe de retornar un numero mayor a 0', () => {
     component.formaCantidad.get('Cantidad');
-    const resp = component.defaultCantidad('10','Google Play');
+    const resp = component.defaultCantidad('10','Google Play', '1','1','image');
     expect(resp).toBeGreaterThan(0);
   });
   
