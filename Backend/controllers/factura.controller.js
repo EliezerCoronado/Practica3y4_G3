@@ -5,17 +5,17 @@ const mysqlConnection = require('../database');
 
 const registrarFactura = async(req,res)=>{
 
-    let query_insert_factura= `INSERT INTO factura(fecha,tipo_cambio,status_transaccion,Usuario_id_usuario) VALUES (STR_TO_DATE(?, '%d/%m/%Y'),?,?,?);`;
+    let query_insert_factura= `INSERT INTO factura(fecha,tipo_cambio,status_transaccion,num_tarjeta,Usuario_id_usuario) VALUES (STR_TO_DATE(?, '%d/%m/%Y'),?,?,?,?);`;
     let query_ultimo_registro = `SELECT MAX(id_factura) AS id FROM Factura`;
     let query_insert_detalle = `INSERT INTO detalle(factura_id_factura,availability_card_id,availability_value_id,cantidad) VALUES (?,?,?,?)`;
 
-    let {fecha,tipo_cambio,status,id_usuario,detalle} = req.body;
+    let {fecha,tipo_cambio,status,num_tarjeta,id_usuario,detalle} = req.body;
     
     //console.log(`insertando: fecha ${fecha} tipo cambio ${tipo_cambio} status ${status} id_usuario ${id_usuario}`);
     try {
 
         //inserción de los datos principales de facturacion en la tabla factura
-        await mysqlConnection.query(query_insert_factura,[fecha,tipo_cambio,status,id_usuario],(err,rows,fields)=>{
+        await mysqlConnection.query(query_insert_factura,[fecha,tipo_cambio,status,num_tarjeta,id_usuario],(err,rows,fields)=>{
             if(!err){
                 console.log('Datos de factura insertados correctamente');
             }else{

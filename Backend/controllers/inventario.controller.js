@@ -10,7 +10,7 @@ const obtenerInventarioUsuario = async(req,res)=>{
 
     try {
         //recibe el id del usuario en el body de la peticion
-        await mysqlConnection.query(query,[req.body.id],(err,rows,fields)=>{
+        await mysqlConnection.query(query,[req.body.id_usuario],(err,rows,fields)=>{
             if(!err){
                 res.json({
                     ok: true,
