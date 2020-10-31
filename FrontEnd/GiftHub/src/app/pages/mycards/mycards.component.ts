@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GiftcardsService } from 'src/app/services/giftcards.service';
 
 @Component({
   selector: 'app-mycards',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MycardsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service:GiftcardsService) { }
 
   cards:any=[
     {
@@ -74,6 +75,19 @@ export class MycardsComponent implements OnInit {
 ];
 
   ngOnInit(): void {
+    this.miInventario();
   }
+  
+  miInventario(){
+    this.service.getMyGiftCards(localStorage.getItem('id')).subscribe((resp:any)=>{
+      this.cards = resp.inventario;
+      console.log(this.cards);
+
+    },err=>{
+      console.log(err);
+    })
+  }
+
+
 
 }

@@ -2,6 +2,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GiftcardsService } from 'src/app/services/giftcards.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pay',
@@ -26,8 +27,8 @@ export class PayComponent implements OnInit {
       this.detalle = JSON.parse(localStorage.getItem('detalle'));
       console.log(this.detalle);
       this.calcularTotalDollar();
-      this.obtenerCambio();
     }
+    this.obtenerCambio();
 
     this.forma = new FormGroup({
       noTarjeta: new FormControl('',Validators.required),
@@ -65,7 +66,6 @@ export class PayComponent implements OnInit {
   }
 
   registrarTarjetaCredito(){
-    this.generarFactura();
     
     if(this.forma.value.noTarjeta.toString().length === 16){
       this.tarjeta = true;
@@ -82,10 +82,18 @@ export class PayComponent implements OnInit {
     }
 
     
+    this.generarFactura(this.forma.value.noTarjeta.toString());
 
+  
   }
 
-  generarFactura(){
+  generarFactura(no_Tarjeta){
+    if(this.detalle.length===0){
+      Swal.fire('Error','No hay GiftCards por comprar','error');
+      return false;
+    }
+
+    let num_Tarjeta = 'XXXX'+no_Tarjeta[4]+no_Tarjeta[5]+no_Tarjeta[6]+no_Tarjeta[7]+'XXXX';
 
     let date: Date = new Date();
     this.detalle.forEach(element => {
@@ -102,24 +110,24 @@ export class PayComponent implements OnInit {
       'tipo_cambio': this.Tasa,
       'status': '1',
       'id_usuario': localStorage.getItem('id'),
+      'num_tarjeta':num_Tarjeta,
       'detalle':this.detalleFactura
     }
 
-    console.log(factura);
 
+    
     this.service.factura(factura).subscribe(resp=>{
       console.log(resp);
+      Swal.fire('Success','Transaccion Realizada','success');
     },err=>{console.log(err)});
 
     this.detalleFactura.forEach(element => {
-      console.log(element);
       for (let index = 0; index < element.cantidad; index++) {
-        console.log('wut');
         let date2:Date = new Date();
         let GiftCard:any = {
           'codigo_tarjeta': date2.getDate()+''+(date2.getMonth()+1)+''+date2.getFullYear()+''+
                             date2.getHours()+''+date2.getMinutes()+''+date2.getSeconds()+''+date2.getMilliseconds(),
-          'id_usuario':localStorage.getItem('id'),
+          'id_usuario': Number(localStorage.getItem('id')),
           'card_id':element.card_id,
           'value_id':element.value_id
         }
@@ -135,8 +143,14 @@ export class PayComponent implements OnInit {
       
     });
 
+    this.detalleFactura=[];
+    this.detalle=[];
+    localStorage.removeItem('detalle');
+    this.Total=0;
 
   }
+
+
 
 
 

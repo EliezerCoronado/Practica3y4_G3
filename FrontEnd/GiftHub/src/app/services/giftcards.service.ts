@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -194,8 +193,16 @@ export class GiftcardsService {
   }
 
   public createMyGiftCards(GiftCard){
-    const url = this.SERVER_NODE+'/inventario/';
+    const url = this.SERVER_NODE+'/inventario/registro/';
     return this.http.post(url, GiftCard);
+  }
+
+  public getMyGiftCards(id_usuario){
+    const url = this.SERVER_NODE + '/inventario/';
+    let usuario = {
+      'id_usuario':id_usuario
+    }
+    return this.http.post(url,usuario);
   }
 
 
