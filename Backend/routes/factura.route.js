@@ -17,7 +17,7 @@ let router = express.Router();
 router.post('/',registrarFactura);
 
 //ruta para obtener el historial de compra de un usuario
-router.get('/',obtenerHistorialCompras);
+router.post('/historial',obtenerHistorialCompras);
 
 //ruta para obtener el historial de todas las compras 
 router.get('/all',obtenerHistorialGeneralCompras);

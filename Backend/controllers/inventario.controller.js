@@ -10,6 +10,8 @@ const obtenerInventarioUsuario = async(req,res)=>{
                  AND  r.availability_card_id =c.id
                  AND v.id = r.availability_value_id`;
 
+                 
+
     try {
         //recibe el id del usuario en el body de la peticion
         await mysqlConnection.query(query,[req.body.id_usuario],(err,rows,fields)=>{
@@ -69,7 +71,6 @@ const registrarNuevaTarjeta = async(req,res)=>{
     try {
         await mysqlConnection.query(query,[codigo_tarjeta,id_usuario,card_id,value_id],(err,rows,fields)=>{
             if(!err){
-                console.log(query);
                 res.json({
                     ok: true,
                     msg: 'Tarjeta registrada satisfactoriamente'

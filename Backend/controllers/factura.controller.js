@@ -55,9 +55,12 @@ const registrarFactura = async(req,res)=>{
 
 
 const obtenerHistorialCompras = async(req,res)=>{
-    let query = `select * from factura as f
-    join detalle as d
-    on f.id_factura = d.factura_id_factura where f.Usuario_id_usuario = ?`;
+    let query = `select * from factura as f, detalle as d, usuario as u, card as c, value as v
+    where f.id_factura = d.factura_id_factura 
+    and f.Usuario_id_usuario =?
+    and f.Usuario_id_usuario = u.id_usuario
+    and c.id = d.availability_card_id 
+    and v.id = d.availability_value_id;`;
 
     try {
         //el id del usuario se manda en el body de la peticion
