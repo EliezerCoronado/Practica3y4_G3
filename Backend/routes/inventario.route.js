@@ -17,7 +17,7 @@ router.post('/',obtenerInventarioUsuario);
 router.get('/all',obtenerInventarioGeneral);
 
 //ruta para registrar una nueva tarjeta con toda su informacion
-router.post('/',registrarNuevaTarjeta);
+router.post('/registro',registrarNuevaTarjeta);
 
 //ruta para transferir de propietario una tarjeta
 router.put('/',transferirTarjeta);

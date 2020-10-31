@@ -6,7 +6,9 @@ const mysqlConnection = require('../database');
 
 const obtenerInventarioUsuario = async(req,res)=>{
 
-    let query = `SELECT * FROM registro WHERE Usuario_id_usuario = ?`;
+    let query = `SELECT * FROM registro r, card c, value v WHERE Usuario_id_usuario = ?
+                 AND  r.availability_card_id =c.id
+                 AND v.id = r.availability_value_id`;
 
     try {
         //recibe el id del usuario en el body de la peticion
@@ -62,11 +64,12 @@ const obtenerInventarioGeneral = async (req,res)=>{
 const registrarNuevaTarjeta = async(req,res)=>{
 
     const query = `INSERT INTO registro(codigo_tarjeta,Usuario_id_usuario,availability_card_id,availability_value_id) VALUES(?,?,?,?)`;
-
+    
     let {codigo_tarjeta,id_usuario,card_id,value_id} = req.body;
     try {
         await mysqlConnection.query(query,[codigo_tarjeta,id_usuario,card_id,value_id],(err,rows,fields)=>{
             if(!err){
+                console.log(query);
                 res.json({
                     ok: true,
                     msg: 'Tarjeta registrada satisfactoriamente'
