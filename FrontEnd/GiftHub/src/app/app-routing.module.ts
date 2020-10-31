@@ -10,6 +10,7 @@ import { MycardsComponent } from './pages/mycards/mycards.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { PayComponent } from './pages/pay/pay.component';
 import { GuardGuard } from '../app/services/guard.guard' 
+import { RegalarComponent } from './pages/regalar/regalar.component';
 
 const routes: Routes = [
 
@@ -22,7 +23,7 @@ const routes: Routes = [
     { path:'mycards', component:MycardsComponent },
     { path:'history', component:HistoryComponent },
     { path:'pay', component:PayComponent },
-    
+    { path:'regalar', component:RegalarComponent },
     { path:'', redirectTo: '/home', pathMatch: 'full' }
   ]
   },

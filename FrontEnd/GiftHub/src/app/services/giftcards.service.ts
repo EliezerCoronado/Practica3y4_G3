@@ -205,6 +205,16 @@ export class GiftcardsService {
     return this.http.post(url,usuario);
   }
 
+  public getAllUsers(){
+    const url = this.SERVER_NODE + '/usuarios/all';
+    return this.http.get(url);
+  }
+
+  public giveCard(body){
+    const url = this.SERVER_NODE + '/inventario/';
+    return this.http.put(url,body);
+  }
+
 
 
 }

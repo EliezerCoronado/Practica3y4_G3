@@ -16,6 +16,7 @@ import { MycardsComponent } from './pages/mycards/mycards.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { PayComponent } from './pages/pay/pay.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegalarComponent } from './pages/regalar/regalar.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfileComponent,
     MycardsComponent,
     HistoryComponent,
-    PayComponent
+    PayComponent,
+    RegalarComponent
   ],
   imports: [
     BrowserModule,

@@ -137,8 +137,8 @@ img {
     bottom: 0;
     right: -100%;
     width: 100%;
-    height: 10px;
-    background: linear-gradient(270deg, transparent, red);
+    height: 2px;
+    background: linear-gradient(270deg, transparent, green);
     animation: animate3 1s linear infinite;
     animation-delay: 0.50s;
 }
