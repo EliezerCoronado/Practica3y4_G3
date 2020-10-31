@@ -7,10 +7,10 @@
 
 
 
-    <div *ngFor="let card of cards" class="border-bottom border-top">
+    <div *ngFor="let card of cards" class="border-bottom border-top"  >
         <h2 style="color:black;">{{card.name}}</h2>
-        <div class="giftcard">
-            <div *ngFor="let item of card.availability" class="box">
+        <div *ngIf="card.active==1" class="giftcard">
+            <div  *ngFor="let item of card.availability" class="box">
                 <div class="glass"></div>
                 <div class="content">
                     <figure>

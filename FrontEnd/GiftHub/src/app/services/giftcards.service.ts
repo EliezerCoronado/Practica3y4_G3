@@ -215,6 +215,11 @@ export class GiftcardsService {
     return this.http.put(url,body);
   }
 
+  public myHistory(user){
+    const url = this.SERVER_NODE + '/factura/historial';
+    return  this.http.post(url,user);
+  }
+
 
 
 }

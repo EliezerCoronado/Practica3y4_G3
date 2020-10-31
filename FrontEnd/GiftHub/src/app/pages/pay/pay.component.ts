@@ -93,7 +93,8 @@ export class PayComponent implements OnInit {
       return false;
     }
 
-    let num_Tarjeta = 'XXXX'+no_Tarjeta[4]+no_Tarjeta[5]+no_Tarjeta[6]+no_Tarjeta[7]+'XXXX';
+    let num_Tarjeta = 'XXXX'+no_Tarjeta[4]+no_Tarjeta[5]+no_Tarjeta[6]+no_Tarjeta[7]
+                            +no_Tarjeta[8]+no_Tarjeta[9]+no_Tarjeta[10]+no_Tarjeta[11]+'XXXX';
 
     let date: Date = new Date();
     this.detalle.forEach(element => {
