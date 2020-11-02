@@ -1,0 +1,55 @@
+<div class="paginas">
+
+    <div class="d-flex justify-content-center">
+        <h1>
+            Regalar Tarjeta
+        </h1>
+    </div>
+    <br>
+
+    <div>
+        <form ngNativeValidate [formGroup]=forma (ngSubmit)='regalar()'> 
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    <div class="card card-body ">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Mis GiftCards</label>
+                                    <select formControlName="giftCards" name="giftCards" class="form-control" required>
+                                            <option></option>
+                                            <option #i (click)=codigoCard(i.value) *ngFor="let item of cards; let i = index" >
+                                               {{ item.id_registro }} - {{ item.name }} - ${{ item.total }}  
+                                            </option> 
+                                    </select>
+                                </div>
+   
+                                <div>
+                                    <button  type="submit" class="btn btn-success btn-lg ">
+                                        <em class="fas fa-gift"></em> Regalar Tarjeta
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Elija un Usuario</label>
+                                    <select formControlName="user" name="user" class="form-control" required>
+                                        <option></option>
+                                        <option *ngFor="let item of users; let i = index" >
+                                            {{ item.id_usuario }} - {{ item.username }}  
+                                         </option> 
+                                </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        
+    </div>
+
+
+</div>

@@ -1,0 +1,70 @@
+<section>
+
+    <div class="box">
+        <div class="form">
+            <h2>Registro</h2>
+            <form ngNativeValidate [formGroup] = forma (ngSubmit) = 'registrar()'>
+                <div class="inputBx">
+                    <input formControlName='user' name="user" type="text" placeholder="Usuario" required>
+                    <img src="../../../assets/img/user.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='email' name="email" type="text" placeholder="Correo" required>
+                    <img src="../../../assets/img/email.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='userName' name="userName" type="text" placeholder="Nombre" required>
+                    <img src="../../../assets/img/user.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='lastName' name="lastName" type="text" placeholder="Apellido" required>
+                    <img src="../../../assets/img/user.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='dpi' name="dpi" type="text" placeholder="DPI" required>
+                    <img src="../../../assets/img/user.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='edad' name="edad" type="date" required>
+                    <img src="../../../assets/img/calendar.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='password' name="password" type="password" placeholder="Contrasenia" required>
+                    <img src="../../../assets/img/lock.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                    <input formControlName='password2' name="password2" type="password" placeholder="Repetir Contrasenia" required>
+                    <img src="../../../assets/img/lock.png" alt="">
+                </div>
+
+
+                <div class="inputBx">
+                    <button type="submit">
+                        <span></span>
+                        <span></span> Crear Cuenta
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+
+            </form>
+            <p>Ya tienes una cuenta?
+            </p>
+            <button type="button" (click)="ingresar()">
+                <span></span>
+                <span></span> Ingresa
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+
+</section>
