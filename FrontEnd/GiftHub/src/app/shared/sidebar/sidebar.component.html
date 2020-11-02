@@ -1,15 +1,15 @@
 <div class="sidebar">
     <ul>
         <li>
-            <a routerLink="/home"><em class="fas fa-home"></em> Home</a>
+            <a routerLink="/home"><em class="fas fa-home"></em>{{isAdmin ? ' Inventario' : ' Home'}}</a>
         </li>
-        <li>
+        <li *ngIf="!isAdmin">
             <a routerLink="/profile"> <em class="fas fa-user-tie"></em> Mi Perfil</a>
         </li>
-        <li><a routerLink="/mycards"><em class="fas fa-credit-card"></em> Mis Tarjetas</a> </li>
-        <li><a routerLink="/regalar"><em class="fas fa-gift"></em> Regalar Tarjeta</a> </li>
+        <li *ngIf="!isAdmin"><a routerLink="/mycards"><em class="fas fa-credit-card"></em> Mis Tarjetas</a> </li>
+        <li *ngIf="!isAdmin"><a routerLink="/regalar"><em class="fas fa-gift"></em> Regalar Tarjeta</a> </li>
         <li><a routerLink="/history"><em class="fas fa-history"></em>{{isAdmin ? ' Historial' : ' Mi historial'}}</a> </li>
-        <li><a routerLink="/pay"><em class="fas fa-money-bill"></em> Pago de Tarjetas</a> </li>
+        <li *ngIf="!isAdmin"><a routerLink="/pay"><em class="fas fa-money-bill"></em> Pago de Tarjetas</a> </li>
 
     </ul>
 </div>

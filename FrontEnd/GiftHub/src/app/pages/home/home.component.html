@@ -1,6 +1,6 @@
 <div class="paginas">
     <div style="color: black;">
-        <h2>Tarjetas Disponibles</h2>
+        <h2>{{ isAdmin ? 'Inventario' : 'Tarjetas Disponibles'}}</h2>
     </div>
     <br>
     <br>
@@ -9,7 +9,8 @@
 
     <div *ngFor="let card of cards" class="border-bottom border-top"  >
         <h2 style="color:black;">{{card.name}}</h2>
-        <div *ngIf="card.active==1" class="giftcard">
+        <h4 *ngIf="isAdmin" style="color:black;"><b>Estado:</b> {{card.active == '1' ? 'Activo' : 'Inactivo'}}</h4>
+        <div *ngIf="viewCards(card.active)" class="giftcard">
             <div  *ngFor="let item of card.availability" class="box">
                 <div class="glass"></div>
                 <div class="content">
@@ -17,7 +18,7 @@
                         <img src="{{ card.image }}" alt="">
                     </figure>
                     <h4>$ {{ value[item-1].total }}
-                        <a type="button" (click)='defaultCantidad(value[item-1].total, card.name, card.id, item, card.image)' data-toggle="modal" href='#modal' class="float-right">
+                        <a *ngIf="!isAdmin" type="button" (click)='defaultCantidad(value[item-1].total, card.name, card.id, item, card.image)' data-toggle="modal" href='#modal' class="float-right">
                             <span></span>
                             <span></span>
                             Comprar

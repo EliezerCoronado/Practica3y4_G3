@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   detalle:any=[];
   formaCantidad:FormGroup;
   formaValida:boolean = true;
+  isAdmin:Boolean = localStorage.getItem('username') === 'admin' ? true : false;
 
   ngOnInit(): void {
     if(localStorage.getItem('detalle')){
@@ -46,6 +47,12 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  viewCards(active:string){
+    if(this.isAdmin){
+      return true;
+    }
+    return active == '1' ? true : false;
+  }
 
   ObtenerCatalogo(){
     this.service.getCatalogo().subscribe((resp:any)=>{
