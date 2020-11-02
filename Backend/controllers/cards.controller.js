@@ -122,6 +122,11 @@ const actualizarInfoTarjetas = async (req,res)=>{
                                 active = ?
                                 WHERE id = ?
                                 `;
+     
+     let query2 = `select * from value where total = ? or id=?`;
+     
+     let query_actualizacion_value = `UPDATE value SET total = ? WHERE id = ?;
+                                `;                            
 
     let query_actualizacion2 = `insert into availability(card_id,value_id)
     values (?,?);`;
@@ -160,7 +165,7 @@ const actualizarInfoTarjetas = async (req,res)=>{
                         //ser actualizan los datos
                         await mysqlConnection.query(query_actualizacion,[id,name,image,chargeRate,active,id],(err,rows,fields)=>{
                             if(!err){
-    
+                                //console.log(query_actualizacion);
                             }else{
                                 console.log(`Error al actualizar registro con id ${id} y nombre ${name}`);
                             }
@@ -186,12 +191,34 @@ const actualizarInfoTarjetas = async (req,res)=>{
         }
 
 
+
+
         for (let c = 0; c < req.body.valores.length; c++) {
             let valor = req.body.valores[c];
             let {id,total} = valor;
 
-            await mysqlConnection.query(query_actualizacion3,[id,total],(err,rows,fields)=>{
+            await mysqlConnection.query(query2,[total,id],async(err,rows,fields)=>{
                 if(!err){
+                    
+                    if(rows.length == 0){
+                        await mysqlConnection.query(query_actualizacion3,[id,total],(err,rows,fields)=>{
+                            if(err){console.log('Error al insertar un nuevo value al momento de actualizar catalogo');}
+                        });
+                    }else{
+                    
+                        await mysqlConnection.query(query_actualizacion_value,[total,id],(err,rows,fields)=>{
+                            if(!err){
+    
+                            }else{
+
+                                console.log(`Error al actualizar registro con id  y nombre `);
+                            }
+                        });
+
+                    }
+
+
+
 
                 }else{
                     console.log('Error al actualizar tabla value');
@@ -199,6 +226,8 @@ const actualizarInfoTarjetas = async (req,res)=>{
             });
             
         }
+
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
