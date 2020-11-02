@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if(localStorage.getItem('detalle')){
-      console.log('no existe');
+      //console.log('no existe');
       this.detalle = JSON.parse(localStorage.getItem('detalle'));
     }
     this.ObtenerTarjetas();
@@ -41,8 +41,6 @@ export class HomeComponent implements OnInit {
     this.service.getCards().subscribe(resp=>{
       this.cards=resp;
       this.ObtenerValores();
-    },err=>{
-      // console.log(err);
     })
   }
 
@@ -50,12 +48,20 @@ export class HomeComponent implements OnInit {
     this.service.getValue().subscribe(resp=>{
       this.values=resp;
       this.actualizarCatalogo();
-    },err=>{
-      // console.log(err);
     })
   }
 
   actualizarCatalogo(){
+
+    this.cards.forEach(element => {
+      element.id=Number(element.id);
+    });
+
+    this.values.forEach(element => {
+      element.id=Number(element.id);
+      element.total=Number(element.total);
+    });
+
     this.service.updateCatalogo({ 'cards':this.cards, 'valores':this.values }).subscribe(resp=>{
       console.log('Actualización exitosa')
       this.ObtenerValues();
@@ -74,18 +80,16 @@ export class HomeComponent implements OnInit {
   ObtenerCatalogo(){
     this.service.getCatalogo().subscribe((resp:any)=>{
       this.cards = resp.tarjetas;
-      console.log(this.cards);
+      //console.log(this.cards);
     });
   }
 
   ObtenerValues(){
     this.service.getValueCatalogo().subscribe((resp:any)=>{
       this.value=resp.valores;
-       console.log(this.value)
+       //console.log(this.value)
        this.ObtenerCatalogo();
       //console.log(this.value[1-1].total);
-    },err=>{
-      // console.log(err);
     })
   }
 
@@ -118,7 +122,7 @@ export class HomeComponent implements OnInit {
     let id_card = date.getDate()+''+(date.getMonth()+1)+''+date.getFullYear()+''+
                   date.getHours()+''+date.getMinutes()+''+date.getSeconds()+''+date.getMilliseconds();
 
-    console.log(id_card);
+    //console.log(id_card);
 
     if(  this.formaCantidad.value.Cantidad !== undefined && 
          this.formaCantidad.value.Cantidad > 0){
@@ -131,9 +135,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  registrarFactura(){
-
-  }
 
 
   agregarCarrito(){
@@ -165,12 +166,13 @@ export class HomeComponent implements OnInit {
     if(!update){
       this.detalle.push(giftcard);
     }
-    console.log(giftcard);
-    console.log(this.detalle);
+    //console.log(giftcard);
+    //console.log(this.detalle);
 
     document.getElementById('modal').click();
     localStorage.setItem('detalle',JSON.stringify(this.detalle));
     Swal.fire('Success','GiftCards agregados', 'success');
+    return true;
 
 
   }

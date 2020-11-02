@@ -66,6 +66,8 @@ export class RegalarComponent implements OnInit {
   regalar(){
     let auxgiftcard = this.forma.value.giftCards;
     let auxuser = this.forma.value.user;
+    //console.log(this.cards);
+    //console.log(this.users);
     this.cards.forEach(element => {
       let auxelement =element.id_registro + ' - ' +element.name + ' - $' + element.total;
       if(auxelement === auxgiftcard){

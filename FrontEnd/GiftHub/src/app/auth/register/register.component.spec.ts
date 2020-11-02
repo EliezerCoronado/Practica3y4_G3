@@ -1,15 +1,47 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GiftcardsService } from 'src/app/services/giftcards.service';
 
 import { RegisterComponent } from './register.component';
 
+
+
+class MockRegister{
+  
+  forma:FormGroup;
+  constructor(){
+    this.forma = new FormGroup({
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null,Validators.required),
+      userName: new FormControl(null, Validators.required),
+      dpi: new FormControl(null,Validators.required),
+      colegiado: new FormControl(null, Validators.required),
+      genero: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+      password2: new FormControl(null, Validators.required)
+    });
+  }
+
+  registrarUsuario(forma){
+    if(forma.valid){
+      return true
+    }else{
+      return false
+    }
+  }
+
+
+}
+
+
+
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let mockRegistro: MockRegister;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,6 +56,7 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    mockRegistro = new MockRegister;
   });
 
   it('Debe crear el componente registro', () => {
@@ -40,7 +73,7 @@ describe('RegisterComponent', () => {
     expect(comp).toBe(false);
   });
 
-  it('Debe retornar false por que es un formulario invalido', () => {
+  it('Crear Usuario, Debe retornar false por que es un formulario invalido', () => {
     let comp = component.registrar();
     expect(comp).toBe(false);
   });
@@ -61,6 +94,29 @@ describe('RegisterComponent', () => {
     component.registrar();
     expect(espia).toHaveBeenCalled();
   });
+
+
+
+  it('Debe crear un medico, mock',()=>{
+    let forma = new FormGroup({
+    user: new FormControl('user1', Validators.required),
+    userName: new FormControl('Usuario 1',Validators.required),
+    password: new FormControl('123', Validators.required),
+    password2: new FormControl('123',Validators.required),
+    email: new FormControl('user1@gmail.com', Validators.required),
+    lastname: new FormControl('Apellido 1', Validators.required),
+    dpi: new FormControl('1000', Validators.required),
+    edad: new FormControl('03/03/1991', Validators.required)
+  });
+  const resp = mockRegistro.registrarUsuario(forma);
+  expect(resp).toBeTruthy;
+});
+
+it('Debe crear un medico, mock',()=>{
+  let forma = new FormGroup({});
+const resp = mockRegistro.registrarUsuario(forma);
+expect(resp).toBeTruthy;
+});
 
   
 

@@ -35,9 +35,16 @@ export class LoginComponent implements OnInit {
 
     
     if(this.forma.value.userName==='admin' && this.forma.value.password==='admin'){
-      console.log('es el admin');
+      //console.log('es el admin');
       localStorage.setItem('username','admin');
       localStorage.setItem('token', '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImlhdCI6MTYwMjg5ODUzOSwiZXhwIjoxNjAyOTg0OTM5fQ.yvYo5eGJb5Zf5AAhYwSHGiTZQN6bCdWa1cXrVkdV7i8"');
+      localStorage.setItem('nombre', 'admin');
+      localStorage.setItem('apellido', 'admin');
+      localStorage.setItem('dpi','10000000');
+      localStorage.setItem('id','1111111');
+      localStorage.setItem('fecha_nacimiento','03/03/1991');
+      localStorage.setItem('correo','admin@gmail.com');
+      
       this.route.navigate(['/home']);
       
       return true;

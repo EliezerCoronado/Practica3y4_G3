@@ -37,8 +37,6 @@ export class HistoryComponent implements OnInit {
           this.usersHistory.push([item]);
         }
       }
-    },err=>{
-      console.log(err);
     })
   }
 

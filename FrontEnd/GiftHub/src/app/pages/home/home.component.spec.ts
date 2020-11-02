@@ -47,8 +47,101 @@ describe('HomeComponent', () => {
     const resp = component.defaultCantidad('10','Google Play', '1','1','image');
     expect(resp).toBeGreaterThan(0);
   });
+
+  it('Comprueba si el admin no esta logueado', () => {
+    component.isAdmin = false;
+    let resp = component.viewCards('1');
+    expect(resp).toBeTrue;
+  });
+
+  it('Comprueba si el admin2 esta logueado', () => {
+    component.isAdmin=true;
+    let resp = component.isAdmin;
+    expect(resp).toBeTrue;
+  });
   
+  it('Comprueba si el admin no esta logueado', () => {
+    component.isAdmin=false;
+    let resp = component.viewCards('2');
+    expect(resp).toBeFalse;
+  });
+
+
+  it('Debe de llamar al servicio de Obtener Valores', () => {
+
+    const espia = spyOn(component.service,'getValue').and.callThrough();
+    component.ObtenerValores();
+    expect(espia).toHaveBeenCalled();
+  });
+
+
+  it('Debe de llamar al servicio de Obtener Catalogos', () => {
+
+    const espia = spyOn(component.service,'getCatalogo').and.callThrough();
+    component.ObtenerCatalogo();
+    expect(espia).toHaveBeenCalled();
+  });
+
   
+  it('Debe de llamar al servicio de Actualizar Catalogo', () => {
+
+    const espia = spyOn(component.service,'updateCatalogo').and.callThrough();
+    component.actualizarCatalogo();
+    expect(espia).toHaveBeenCalled();
+  });
+
+  it('Delbe de llamar al servicio de obtener Values', () => {
+
+    const espia = spyOn(component.service,'getValueCatalogo').and.callThrough();
+    component.ObtenerValues();
+    expect(espia).toHaveBeenCalled();
+  });
+
+
+  it('Debe retornar true si la cantidad es mayor a 0', () => {
+    const cantidad = component.formaCantidad.get('Cantidad');
+    cantidad.setValue(1);
+    component.formaValida=true;
+    
+    let comp = component.vistaCantidad();
+
+    expect(comp).toBe(true);
+  });
+
+  it('Debe retornar false si la cantidad es  0', () => {
+    const cantidad = component.formaCantidad.get('Cantidad');
+    cantidad.setValue(0);
+    component.formaValida=false;
+    
+    let comp = component.vistaCantidad();
+
+    expect(comp).toBe(false);
+  });
+
+
+
+  it('Debe retornar false si el fomulario no es valido', () => {
+    component.formaValida=false;
+    
+    let comp = component.agregarCarrito();
+
+    expect(comp).toBe(false);
+  });
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
 
 
 

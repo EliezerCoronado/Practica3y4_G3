@@ -188,6 +188,7 @@ export class GiftcardsService {
   }
 
   public updateCatalogo(info:any){
+    console.log(info);
     const url = this.SERVER_NODE + '/cards/infoTarjeta'
     return this.http.put(url,info);
   }

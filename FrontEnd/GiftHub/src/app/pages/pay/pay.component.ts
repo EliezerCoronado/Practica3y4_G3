@@ -21,13 +21,14 @@ export class PayComponent implements OnInit {
   detalleFactura:any=[];
   monedasDePago:any=[{'name':'Quetzales', 'value': 1, 'value2':'Q', 'value3':true},{'name':'Dólares', 'value': 1, 'value2':'$','value3':false}];
   tasaActual:number = 1;
+  mascaraTarjeta:string='';
 
   constructor(public service: GiftcardsService) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('detalle')){
       this.detalle = JSON.parse(localStorage.getItem('detalle'));
-      console.log(this.detalle);
+      //console.log(this.detalle);
       this.calcularTotalDollar();
     }
     this.obtenerCambio();
@@ -96,6 +97,11 @@ export class PayComponent implements OnInit {
 
   
   }
+  generarcodigo(){
+    let date2:Date = new Date();
+    return date2.getDate()+''+(date2.getMonth()+1)+''+date2.getFullYear()+''+
+                            date2.getHours()+''+date2.getMinutes()+''+date2.getSeconds()+''+date2.getMilliseconds();
+  }
 
   generarFactura(no_Tarjeta){
     if(this.detalle.length===0){
@@ -103,7 +109,7 @@ export class PayComponent implements OnInit {
       return false;
     }
 
-    let num_Tarjeta = 'XXXX'+no_Tarjeta[4]+no_Tarjeta[5]+no_Tarjeta[6]+no_Tarjeta[7]
+    this.mascaraTarjeta = 'XXXX'+no_Tarjeta[4]+no_Tarjeta[5]+no_Tarjeta[6]+no_Tarjeta[7]
                             +no_Tarjeta[8]+no_Tarjeta[9]+no_Tarjeta[10]+no_Tarjeta[11]+'XXXX';
 
     let date: Date = new Date();
@@ -121,7 +127,7 @@ export class PayComponent implements OnInit {
       'tipo_cambio': this.obtenerInfoMoneda().value,
       'status': '1',
       'id_usuario': localStorage.getItem('id'),
-      'num_tarjeta':num_Tarjeta,
+      'num_tarjeta':this.mascaraTarjeta,
       'detalle':this.detalleFactura
     }
 
@@ -130,14 +136,12 @@ export class PayComponent implements OnInit {
     this.service.factura(factura).subscribe(resp=>{
       console.log(resp);
       Swal.fire('Success','Transaccion Realizada','success');
-    },err=>{console.log(err)});
+    });
 
     this.detalleFactura.forEach(element => {
       for (let index = 0; index < element.cantidad; index++) {
-        let date2:Date = new Date();
         let GiftCard:any = {
-          'codigo_tarjeta': date2.getDate()+''+(date2.getMonth()+1)+''+date2.getFullYear()+''+
-                            date2.getHours()+''+date2.getMinutes()+''+date2.getSeconds()+''+date2.getMilliseconds(),
+          'codigo_tarjeta': this.generarcodigo(),
           'id_usuario': Number(localStorage.getItem('id')),
           'card_id':element.card_id,
           'value_id':element.value_id
@@ -145,8 +149,6 @@ export class PayComponent implements OnInit {
 
         this.service.createMyGiftCards(GiftCard).subscribe(resp=>{
           console.log(resp);
-        },err =>{
-          console.log(err);
         })
         
       }

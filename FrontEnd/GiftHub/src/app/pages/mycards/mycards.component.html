@@ -8,11 +8,13 @@
                 <div class="content">
 
                     <h5>{{ card.name }}</h5>
+                    <p style="font-size:11px" >{{ card.codigo_tarjeta }}</p>
+                    
                     <figure>
                         <img src="{{ card.image }}" alt="">
                     </figure>
                     <p>$ {{ card.total }}
-                        <a type="button" class="float-right">
+                        <a type="button" class="float-right" routerLink="/regalar">
                             <span></span>
                             <span></span>
                             Regalar

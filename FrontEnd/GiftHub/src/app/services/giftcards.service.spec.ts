@@ -26,12 +26,7 @@ describe('GiftcardsService', () => {
   });
 
 
-  it('Debe de comprobar un Token vacio', ()=>{
-    localStorage.setItem('token','');
-    service.cargarStorage(); 
-    expect(service.token.length).toBeLessThanOrEqual(0);
-  });
-
+  
 
   it('Debe almacenar datos de usuario en el storage', ()=>{
     const token='jajaja123456789pepe';

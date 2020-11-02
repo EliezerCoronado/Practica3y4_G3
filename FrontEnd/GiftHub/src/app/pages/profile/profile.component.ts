@@ -89,9 +89,7 @@ export class ProfileComponent implements OnInit {
       password: this.formPassword.value.newPass,
       password2: this.formPassword.value.confirmPass
     }
-    console.log(user.password);
-    console.log(user.password2);
-    
+
 
     this.service.updateUserPassword(user).
     subscribe((resp:any)=>{
