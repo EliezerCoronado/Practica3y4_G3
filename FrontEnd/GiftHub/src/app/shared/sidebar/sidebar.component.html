@@ -8,7 +8,7 @@
         </li>
         <li><a routerLink="/mycards"><em class="fas fa-credit-card"></em> Mis Tarjetas</a> </li>
         <li><a routerLink="/regalar"><em class="fas fa-gift"></em> Regalar Tarjeta</a> </li>
-        <li><a routerLink="/history"><em class="fas fa-history"></em> Mi Historial</a> </li>
+        <li><a routerLink="/history"><em class="fas fa-history"></em>{{isAdmin ? ' Historial' : ' Mi historial'}}</a> </li>
         <li><a routerLink="/pay"><em class="fas fa-money-bill"></em> Pago de Tarjetas</a> </li>
 
     </ul>

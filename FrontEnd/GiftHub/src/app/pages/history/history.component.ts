@@ -10,8 +10,12 @@ export class HistoryComponent implements OnInit {
 
   constructor(public service:GiftcardsService) { }
   historial:any=[];
+  isAdmin:Boolean = localStorage.getItem('username') === 'admin' ? true : false;
+  usersHistory:any = [];
+
   ngOnInit(): void {
     this.miHistorial();
+    this.getUsersHistory();
   }
 
   miHistorial(){
@@ -20,8 +24,31 @@ export class HistoryComponent implements OnInit {
     }
     this.service.myHistory(user).subscribe((resp:any)=>{
       this.historial=resp.historial;
-      console.log(this.historial);
     })
+  }
+
+  getUsersHistory(){
+    this.service.getUsersHistory().subscribe((resp:any)=>{
+      for (const item of resp.historial) {
+        let position = this.findUsersHistoryPosition(item.id_usuario);
+        if(position >= 0){
+          this.usersHistory[position].push(item);
+        } else {
+          this.usersHistory.push([item]);
+        }
+      }
+    },err=>{
+      console.log(err);
+    })
+  }
+
+  findUsersHistoryPosition(id){
+    for (let i = 0; i < this.usersHistory.length; i++) {
+      if(this.usersHistory[i][0].id_usuario === id){
+        return i;
+      }
+    }
+    return -1;
   }
 
 }

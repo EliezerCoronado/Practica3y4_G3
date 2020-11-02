@@ -220,6 +220,9 @@ export class GiftcardsService {
     return  this.http.post(url,user);
   }
 
-
+  public getUsersHistory(){
+    const url = this.SERVER_NODE + '/factura/all';
+    return  this.http.get(url);
+  }
 
 }
