@@ -9,7 +9,7 @@
 
     <div *ngFor="let card of cards" class="border-bottom border-top"  >
         <h2 style="color:black;">{{card.name}}</h2>
-        <h4 *ngIf="isAdmin" style="color:black;"><b>Estado:</b> {{card.active == '1' ? 'Activo' : 'Inactivo'}}</h4>
+        <h4 *ngIf="isAdmin" style="color:black;"><strong>Estado:</strong> {{card.active == '1' ? 'Activo' : 'Inactivo'}}</h4>
         <div *ngIf="viewCards(card.active)" class="giftcard">
             <div  *ngFor="let item of card.availability" class="box">
                 <div class="glass"></div>
