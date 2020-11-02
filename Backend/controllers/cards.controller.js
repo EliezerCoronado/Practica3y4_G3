@@ -122,9 +122,7 @@ const actualizarInfoTarjetas = async (req,res)=>{
                                 active = ?
                                 WHERE id = ?
                                 `;
-    let query_delete = `delete from availability where card_id >= 0`;
-    let query_delete2 = `delete from value where id >= 0`;
-    let query_delete3 = `delete from card where id >= 0`;
+
     let query_actualizacion2 = `insert into availability(card_id,value_id)
     values (?,?);`;
     let query_actualizacion3 = `insert into value(id,total)values(?,?);`;
@@ -136,8 +134,7 @@ const actualizarInfoTarjetas = async (req,res)=>{
 
     try {
          //para las availability se debe borrar los registros de la tabla
-        await mysqlConnection.query(query_delete,[],(err,rows,fields)=>{if(err){console.log('Error al borrar la tabla availability');}});
-        await mysqlConnection.query(query_delete3,[],(err,rows,fields)=>{if(err){console.log('Error al borrar la tabla card');}});
+       
         for (let a = 0; a < req.body.cards.length; a++) {
             let tarjeta = req.body.cards[a];
             let {id,name,image,chargeRate,active,availability} = tarjeta;
@@ -189,7 +186,6 @@ const actualizarInfoTarjetas = async (req,res)=>{
         }
 
 
-        await mysqlConnection.query(query_delete2,[],(err,rows,fields)=>{if(err){console.log('Error al eliminar tabla value');}});
         for (let c = 0; c < req.body.valores.length; c++) {
             let valor = req.body.valores[c];
             let {id,total} = valor;
