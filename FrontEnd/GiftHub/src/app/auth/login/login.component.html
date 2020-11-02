@@ -1,0 +1,40 @@
+<section>
+
+    <div class="box">
+        <div class="form">
+            <h2>Login</h2>
+            <form ngNativeValidate [formGroup] = forma (ngSubmit) = 'ingresar()'>
+                <div class="inputBx input-group">
+
+                    <input formControlName='userName' name="userName" type="text" placeholder="Username" required>
+                    <img src="../../../assets/img/user.png" alt="">
+                </div>
+                <div class="inputBx input-group">
+                    <input    formControlName='password' name="password" type="password" placeholder="Password" required>
+                    <img src="../../../assets/img/lock.png" alt="">
+                </div>
+
+                <div class="inputBx">
+                        <button type="submit" class="btn btn-outline-light">
+                        <span></span>
+                        <span></span> Ingresar
+                        <span></span>
+                        <span></span>
+                        </button>
+                </div>
+
+            </form>
+            <p>Aun no tienes una cuenta?
+
+            </p>
+            <button  type="button" routerLink="/register">    
+                <span></span>
+                <span></span>Crear Cuenta
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+
+</section>
