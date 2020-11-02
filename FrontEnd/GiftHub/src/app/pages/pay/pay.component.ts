@@ -65,7 +65,6 @@ export class PayComponent implements OnInit {
     this.service.getTasa().subscribe((resp:any)=>{
       this.Tasa = resp[0].total;
       this.monedasDePago[0].value = this.Tasa;
-      console.log(this.Tasa);
     })
   }
 

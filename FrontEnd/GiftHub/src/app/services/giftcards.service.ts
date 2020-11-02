@@ -187,6 +187,11 @@ export class GiftcardsService {
     return this.http.get(url);
   }
 
+  public updateCatalogo(info:any){
+    const url = this.SERVER_NODE + '/cards/infoTarjeta'
+    return this.http.put(url,info);
+  }
+
   public factura(detalle:any){
     const url = this.SERVER_NODE+'/factura/'
     return this.http.post(url,detalle);

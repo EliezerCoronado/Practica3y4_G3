@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   IdValue:string='';
   GiftValue:number = 0;
   cards:any=[];
+  values:any=[];
   value:any=[];
   carrito:any=[];
   detalle:any=[];
@@ -30,9 +31,7 @@ export class HomeComponent implements OnInit {
       console.log('no existe');
       this.detalle = JSON.parse(localStorage.getItem('detalle'));
     }
-    
-    this.ObtenerCatalogo()
-    this.ObtenerValues();
+    this.ObtenerTarjetas();
     this.formaCantidad = new FormGroup({
       Cantidad: new FormControl(1, [Validators.required, Validators.pattern("^[0-9]*$")])
     })
@@ -41,10 +40,28 @@ export class HomeComponent implements OnInit {
   ObtenerTarjetas(){
     this.service.getCards().subscribe(resp=>{
       this.cards=resp;
-       console.log(this.cards);
+      this.ObtenerValores();
     },err=>{
       // console.log(err);
     })
+  }
+
+  ObtenerValores(){
+    this.service.getValue().subscribe(resp=>{
+      this.values=resp;
+      this.actualizarCatalogo();
+    },err=>{
+      // console.log(err);
+    })
+  }
+
+  actualizarCatalogo(){
+    this.service.updateCatalogo({ 'cards':this.cards, 'valores':this.values }).subscribe(resp=>{
+      console.log('Actualización exitosa')
+      this.ObtenerValues();
+    },err=>{
+      console.log('Actualización fallida');
+    });
   }
 
   viewCards(active:string){
@@ -65,6 +82,7 @@ export class HomeComponent implements OnInit {
     this.service.getValueCatalogo().subscribe((resp:any)=>{
       this.value=resp.valores;
        console.log(this.value)
+       this.ObtenerCatalogo();
       //console.log(this.value[1-1].total);
     },err=>{
       // console.log(err);
