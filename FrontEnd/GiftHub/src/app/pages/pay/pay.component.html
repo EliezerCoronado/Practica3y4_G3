@@ -69,12 +69,21 @@
                                     <span style="color:red;" *ngIf="!codigo">El codigo no es valido</span>
                                 </div>
 
-                                <div>
-                                    <label>Tasa de Cambio: <span style="color:green"><strong>Q{{ Tasa }}</strong></span></label>
+                                <div class="form-group">
+                                    <label>Moneda de pago</label>
+                                    <select formControlName="moneda" name="monedas" class="form-control" required>
+                                        <option *ngFor="let item of monedasDePago; let i = index" >
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div *ngIf="obtenerInfoMoneda().value3">
+                                    <label>Tasa de Cambio: <span style="color:green"><strong>{{obtenerInfoMoneda().value2}}{{ obtenerInfoMoneda().value }}</strong></span></label>
                                 </div>
 
                                 <div>
-                                    <label>Total a Pagar: <span style="color:green"><strong>Q{{ Tasa * Total }}</strong></span></label>
+                                    <label>Total a Pagar: <span style="color:green"><strong>{{obtenerInfoMoneda().value2}}{{ obtenerInfoMoneda().value * Total }}</strong></span></label>
                                 </div>
 
 

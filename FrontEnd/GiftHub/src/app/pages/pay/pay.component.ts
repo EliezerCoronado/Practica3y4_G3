@@ -19,6 +19,8 @@ export class PayComponent implements OnInit {
   tarjeta=true;
   codigo=true;
   detalleFactura:any=[];
+  monedasDePago:any=[{'name':'Quetzales', 'value': 1, 'value2':'Q', 'value3':true},{'name':'Dólares', 'value': 1, 'value2':'$','value3':false}];
+  tasaActual:number = 1;
 
   constructor(public service: GiftcardsService) { }
 
@@ -34,9 +36,17 @@ export class PayComponent implements OnInit {
       noTarjeta: new FormControl('',Validators.required),
       nameCard: new FormControl('',Validators.required),
       expirationDate: new FormControl('',Validators.required),
-      verifierCode:  new FormControl('',Validators.required)
+      verifierCode:  new FormControl('',Validators.required),
+      moneda:  new FormControl(this.monedasDePago[0].name,Validators.required)
     });
+  }
 
+  obtenerInfoMoneda(){
+    for (const item of this.monedasDePago) {
+      if(this.forma.value.moneda === item.name){
+        return item;
+      }
+    }
   }
 
   calcularTotalDollar(){
@@ -54,6 +64,7 @@ export class PayComponent implements OnInit {
   obtenerCambio(){
     this.service.getTasa().subscribe((resp:any)=>{
       this.Tasa = resp[0].total;
+      this.monedasDePago[0].value = this.Tasa;
       console.log(this.Tasa);
     })
   }
@@ -108,7 +119,7 @@ export class PayComponent implements OnInit {
 
     let factura:any={
       'fecha':date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear(),
-      'tipo_cambio': this.Tasa,
+      'tipo_cambio': this.obtenerInfoMoneda().value,
       'status': '1',
       'id_usuario': localStorage.getItem('id'),
       'num_tarjeta':num_Tarjeta,
