@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 
 let corsOptions = {
-    origin: 'http://localhost:4200'
+    origin: 'http://localhost:4200',
+    origin: 'http://localhost:9876'
 }
 
 //se creo el servidor express
@@ -10,7 +11,9 @@ let app = express();
 app.disable("x-powered-by");
 
 //configuracion de cors
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(cors());
+app.options('*', cors());
 
 //lectura y parseo del body
 app.use(express.json());
