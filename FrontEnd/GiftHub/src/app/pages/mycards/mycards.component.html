@@ -1,0 +1,31 @@
+<div class="paginas">
+
+    <div class="border-bottom border-top">
+        <h2 style="color:black;">Mis Tarjetas</h2>
+        <div class="giftcard">
+            <div *ngFor="let card of cards" class="box">
+                <div class="glass"></div>
+                <div class="content">
+
+                    <h5>{{ card.name }}</h5>
+                    <p style="font-size:11px" >{{ card.codigo_tarjeta }}</p>
+                    
+                    <figure>
+                        <img src="{{ card.image }}" alt="">
+                    </figure>
+                    <p>$ {{ card.total }}
+                        <a type="button" class="float-right" routerLink="/regalar">
+                            <span></span>
+                            <span></span>
+                            Regalar
+                            <span></span>
+                            <span></span>
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

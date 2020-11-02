@@ -1,0 +1,99 @@
+<div class="paginas">
+
+    <div class="d-flex justify-content-center">
+        <h1>
+            Mi perfil
+        </h1>
+    </div>
+    <br>
+
+    <div>
+        <form ngNativeValidate [formGroup]=formUserInfo>
+            <div class="row justify-content-md-center">
+                <div class="col-md-5">
+                    <div class="card card-body ">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input formControlName="Nombre" name="firstName" type="text" class="form-control"
+                                        placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Usuario</label>
+                                    <input formControlName="user" name="secondName" type="text" class="form-control"
+                                        placeholder="Usuario" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha de Nacimiento</label>
+                                    <input formControlName="edad" name="birthday" type="date" class="form-control"
+                                        required>
+                                </div>
+                                <div>
+                                    <button [disabled]="formUserInfo.invalid" (click)="saveUserInfo()" type="submit" class="btn btn-success btn-lg ">
+                                        <em class="fas fa-save"></em> Guardar
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Apellido</label>
+                                    <input formControlName="Apellido" name="firstLastName" type="text"
+                                        class="form-control" placeholder="Apellido" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>DPI</label>
+                                    <input formControlName="dpi" name="secodLastName" type="text" class="form-control"
+                                        placeholder="DPI" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo</label>
+                                    <input formControlName="email" name="secodLastName" type="email"
+                                        class="form-control" placeholder="Correo" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <br>
+
+        <form ngNativeValidate [formGroup]=formPassword>
+            <div class="row justify-content-md-center">
+                <div class="col-md-5">
+                    <div class="card card-body ">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Nueva Contrasenia</label>
+                                    <input formControlName="newPass" name="newPass" type="password" class="form-control"
+                                        placeholder="Contraseña" required>
+                                </div>
+
+                                <div>
+                                    <button [disabled]="formPassword.invalid" (click)="saveUserPassword()" type="submit" class="btn btn-success btn-lg ">
+                                        <em class="fas fa-save"></em>
+                                        Cambiar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <label>Confirmar Contrasenia</label>
+                                    <input formControlName="confirmPass" name="confirmPass" type="password"
+                                        class="form-control" placeholder="Confirmar Contraseña" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
